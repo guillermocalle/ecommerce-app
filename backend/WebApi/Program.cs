@@ -1,15 +1,19 @@
-var builder = WebApplication.CreateBuilder(args);
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 
-// Add services to the container.
+namespace WebApi;
 
-builder.Services.AddControllers();
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        CreateHostBuilder(args).Build().Run();
+    }
 
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
+    private static IHostBuilder CreateHostBuilder(string[] args)
+    => Host.CreateDefaultBuilder(args)
+        .ConfigureWebHostDefaults(webBuilder =>
+        {
+            webBuilder.UseStartup<Startup>();
+        });
+}
